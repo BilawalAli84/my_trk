@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // const axiosInstance = axios.create();
 const axiosInstance = axios.create({
-  baseURL: `http://localhost:8000/track_down`
+  baseURL: `https://tracking-backend-sooty.vercel.app/track_down`
 })
 axiosInstance.interceptors.response.use(
   (response) => response,

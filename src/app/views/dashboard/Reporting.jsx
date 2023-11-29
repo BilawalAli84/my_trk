@@ -74,7 +74,7 @@ function Dashboard() {
     const fetchData = async () => {
       try {
         const access_token = localStorage.getItem('accessToken');
-        const response = await fetch(`http://localhost:8000/track_down/unique_optins?page=${currentPage}&perPage=${itemsPerPage}`, {
+        const response = await fetch(`https://tracking-backend-sooty.vercel.app/track_down/unique_optins?page=${currentPage}&perPage=${itemsPerPage}`, {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${access_token}`,
