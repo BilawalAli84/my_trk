@@ -23,9 +23,11 @@ const Tracking = () => {
   const [domain, setDomain] = useState('');
   const [webUrl, setWebUrl] = useState('');
   const [pixelId, setPixelId] = useState('');
+  const [googleId, setGoogleId] = useState('');
   const [isDomainValid, setIsDomainValid] = useState(true);
   const [generatedScript, setGeneratedScript] = useState('');
   const [availableDomains, setAvailableDomains] = useState([]);
+  const [availableGoogleId, setAvailableGoogleId] = useState([]);
   const [availablePixels, setAvailablePixels] = useState([]);
   const [availablePaths, setAvailablePaths] = useState([]);
 
@@ -57,6 +59,15 @@ const Tracking = () => {
         console.error('Error fetching pixels:', error.message);
       });
 
+      axiosClient.get('/get_google_conversion')
+      .then(response => {
+        // Update state with the received pixels
+        setAvailableGoogleId(response.data.google_id);
+      })
+      .catch(error => {
+        console.error('Error fetching Ids:', error.message);
+      });
+
       axiosClient.get('/get_urls')
       .then(response => {
         // Update state with the received paths
@@ -80,6 +91,9 @@ const Tracking = () => {
   const handlePixelIdChange = (event) => {
     setPixelId(event.target.value);
   };
+  const handleGoogleIdChange = (event) => {
+    setGoogleId(event.target.value);
+  };
   const handleSubmit = async () => {
     // Check if the required field is valid before submitting
     if (isDomainValid) {
@@ -94,6 +108,7 @@ const Tracking = () => {
             domain,
             webUrl,
             pixelId,
+            googleId,
             userData,
           },
           {
@@ -148,6 +163,20 @@ const Tracking = () => {
             {availablePixels.map((pixelId) => (
               <MenuItem key={pixelId} value={pixelId}>
                 {pixelId}
+              </MenuItem>
+            ))}
+          </TextField>
+          <TextField
+            select
+            label="Select google event id"
+            value={googleId}
+            onChange={handleGoogleIdChange}
+            fullWidth
+            margin="normal"
+          >
+            {availableGoogleId.map((googleId) => (
+              <MenuItem key={googleId} value={googleId}>
+                {googleId}
               </MenuItem>
             ))}
           </TextField>

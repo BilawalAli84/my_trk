@@ -24,7 +24,12 @@ const UrlRules = () => {
   const [isDomainValid, setIsDomainValid] = useState(true);
   const [urlPath, setUrlPath] = useState('');
   const [eventToFire, setEventToFire] = useState('');
-  
+  // const [googleEventToFire, setGoogleEventToFire] = useState('');
+  const [tags, setTags] = useState('');
+
+  const handleTagsChange = (event) => {
+    setTags(event.target.value);
+  };
   const handleDomainChange = (event) => {
     const value = event.target.value;
     setDomain(value);
@@ -38,6 +43,9 @@ const UrlRules = () => {
   const handleEventToFireChange = (event) => {
     setEventToFire(event.target.value);
   };
+  // const handleGoogleEventToFireChange = (event) => {
+  //   setGoogleEventToFire(event.target.value);
+  // };
 
   const handleSubmit = async () => {
     // Check if the required fields are valid before submitting
@@ -49,6 +57,8 @@ const UrlRules = () => {
           {
             urlPath,
             eventToFire,
+            tags,
+            // googleEventToFire,
           }
         );
 
@@ -106,7 +116,7 @@ const UrlRules = () => {
           />
           <TextField
             select
-            label="Select Event to Fire"
+            label="Select Facebook Event to Fire"
             value={eventToFire}
             onChange={handleEventToFireChange}
             fullWidth
@@ -116,8 +126,31 @@ const UrlRules = () => {
             <MenuItem value="PageView">Page View</MenuItem>
             <MenuItem value="Lead">Click</MenuItem>
             <MenuItem value="Purchase">Purchase</MenuItem>
+            <MenuItem value="Schedule">Schedule</MenuItem>
+
             {/* Add more MenuItem components for additional options */}
           </TextField>
+          {/* <TextField
+            select
+            label="Select Google Events to Fire"
+            value={googleEventToFire}
+            onChange={handleGoogleEventToFireChange}
+            fullWidth
+            margin="normal"
+            required
+          >
+            <MenuItem value="PageView">Page View</MenuItem>
+            <MenuItem value="Purchase">Purchase</MenuItem>
+            <MenuItem value="SubmitLead">Submit lead</MenuItem>
+            <MenuItem value="SignUp">Sign-up</MenuItem>
+          </TextField> */}
+          <TextField
+          label="Enter Tags (Optional)"
+          value={tags}
+          onChange={handleTagsChange}
+          fullWidth
+          margin="normal"
+        />
           <Button variant="contained" color="primary" onClick={handleSubmit}>
             Submit
           </Button>
